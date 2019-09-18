@@ -1,11 +1,10 @@
 //   /lib/models/crmModel.ts
-
 import * as mongoose from 'mongoose';
 
 export const TodoSchema: mongoose.Schema = new mongoose.Schema({
-  // todoid: {
-  //   type: Number
-  // },
+  todoid: {
+    type: Number
+  },
   title: {
     type: String,
     required: 'Enter a title'
