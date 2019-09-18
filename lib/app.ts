@@ -1,7 +1,7 @@
 import express = require('express');
 import * as bodyParser from 'body-parser';
 import { Routes } from './routes/crmRoutes';
-import mongoose = require('mongoose');
+import * as mongoose from 'mongoose';
 import { TodoSchema } from './models/crmModel';
 
 const autoIncrement = require('mongoose-sequence')(mongoose);
@@ -25,7 +25,7 @@ class App {
     this.routePrv.routes(this.app);
     this.mongoSetup();
 
-    mongoose.Promise = global.Promise;
+    //mongoose.Promise = global.Promise;
 
     TodoSchema.plugin(autoIncrement, {
       inc_field: 'todoid',
