@@ -3,11 +3,15 @@ import * as mongoose from 'mongoose';
 import { TodoSchema } from '../models/crmModel';
 import { Request, Response } from 'express';
 
-const Todo = mongoose.model('Todo', TodoSchema);
+const TheTodo = mongoose.model('Todo', TodoSchema);
 export class TodoController {
   public addNewTodo(req: Request, res: Response) {
-    let newTodo = new Todo(req.body);
-
+    let newTodo = new TheTodo({
+      complete: req.body.complete,
+      editMode: req.body.editMode,
+      note: req.body.note,
+      title: req.body.title
+    });
     newTodo.save((err, todo) => {
       if (err) {
         res.send(err);
@@ -17,7 +21,7 @@ export class TodoController {
   }
 
   public getTodos(req: Request, res: Response) {
-    Todo.find({}, (err, todo) => {
+    TheTodo.find({}, (err, todo) => {
       if (err) {
         res.send(err);
       }
@@ -26,7 +30,7 @@ export class TodoController {
   }
 
   public getTodoWithID(req: Request, res: Response) {
-    Todo.findOne({ todoid: req.params.todoid }, function(err, todo) {
+    TheTodo.findOne({ todoid: req.params.todoid }, function(err, todo) {
       if (err) {
         res.send(err);
       }
@@ -35,7 +39,7 @@ export class TodoController {
   }
 
   public updateTodo(req: Request, res: Response) {
-    Todo.findOneAndUpdate(
+    TheTodo.findOneAndUpdate(
       { todoid: req.params.todoid },
       req.body,
       { new: true },
@@ -49,7 +53,7 @@ export class TodoController {
   }
 
   public deleteTodo(req: Request, res: Response) {
-    Todo.remove({ todoid: req.params.todoid }, err => {
+    TheTodo.remove({ todoid: req.params.todoid }, err => {
       if (err) {
         res.send(err);
       }
