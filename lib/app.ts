@@ -26,12 +26,11 @@ class App {
     this.mongoSetup();
 
     mymongoose.Promise = global.Promise;
-
+    mymongoose.model('Todos', TodoSchema);
     TodoSchema.plugin(autoIncrement, {
       inc_field: 'todoid',
       start_seq: 422
     });
-    mymongoose.model('Todos', TodoSchema);
   }
 
   private mongoSetup(): void {
